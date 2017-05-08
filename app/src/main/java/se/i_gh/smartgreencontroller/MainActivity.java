@@ -1,10 +1,12 @@
 package se.i_gh.smartgreencontroller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +34,22 @@ public class MainActivity extends AppCompatActivity {
                 tv.setText("");
             }
         });
+
+        try {
+//            if (ContextCompat.checkSelfPermission(this,
+//                    Manifest.permission.INTERNET)
+//                    != PackageManager.PERMISSION_GRANTED) {
+//                ActivityCompat.requestPermissions(this,
+//                        new String[]{Manifest.permission.INTERNET},
+//                        1);
+//            } else {
+                IotClient.getSubInstance(this).subscribeSensor(tv);
+
+//            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "sensor subscribe error", e);
+        }
+
     }
 
     @Override
@@ -48,7 +66,14 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
+
         //noinspection SimplifiableIfStatement
+        if (id == R.id.action_command) {
+            Intent intent = new Intent(this, CommandActivity.class);
+            startActivity(intent);
+            return true;
+        }
         if (id == R.id.action_settings) {
             return true;
         }
