@@ -31,8 +31,6 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    //public static final String URL = "http://livecdn.video.taobao.com/temp/test1466295255657-65e172e6-1b96-4660-9f2f-1aba576d84e8.m3u8";
-    //public static final String URL = "rtmp://sglive.dejon.cn/smartgreen/1";
     public static final String URL = "http://sglive.dejon.cn/smartgreen/1.m3u8";
     final static String LOG_TAG = "MainActivity";
     private View includeShow, includeReceive, includeDashboard, includeSend, includeVideo;
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     String air_temp = Integer.toString(Integer.parseInt(hao.substring(6, 8)));
                     String air_humi = Integer.toString(Integer.parseInt(hao.substring(8, 10)));
                     tv_h.setText(String.format("位置[1] %s%% 位置[2] %s%%", humi_1, humi_2));
-                    tv_a.setText(String.format("温度 %s℃ 湿度 %s%%", air_temp, air_humi));
+                    tv_a.setText(String.format("温度 %s℃     湿度 %s%%", air_temp, air_humi));
                     String click = hao.substring(11, 15) + "/" + hao.substring(15, 17) + "/" + hao.substring(17, 19) + " " + hao.substring(19, 21) + ":" + hao.substring(21, 23);
                     String status = (hao.substring(23).equalsIgnoreCase("close")) ? "关闭" : "开启";
                     tv_o.setText(String.format("%s %s", click, status));

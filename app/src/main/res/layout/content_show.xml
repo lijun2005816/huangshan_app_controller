@@ -9,12 +9,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
         android:background="@drawable/layout_border"
-        android:orientation="vertical"
-        android:padding="6dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:freezesText="true"
             android:gravity="center_horizontal"
             android:text="@string/name_com"
@@ -32,9 +32,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="vertical"
-                android:padding="6dp">
+                android:layout_weight="4"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -47,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/name_h"
-                        android:maxHeight="30dp"
+                        android:maxHeight="35dp"
                         app:srcCompat="@drawable/ic_airhumi" />
 
                     <TextView
@@ -82,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/icon_humi"
-                        android:maxHeight="30dp"
+                        android:maxHeight="35dp"
                         app:srcCompat="@drawable/ic_airtemp" />
 
                     <TextView
@@ -115,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/name_o"
-                        android:maxHeight="30dp"
+                        android:maxHeight="35dp"
                         app:srcCompat="@drawable/ic_operate" />
 
                     <TextView
@@ -148,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/name_wea"
-                        android:maxHeight="30dp"
+                        android:maxHeight="35dp"
                         app:srcCompat="@drawable/ic_weather" />
 
                     <TextView
@@ -174,9 +173,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="vertical"
-                android:padding="6dp">
+                android:layout_weight="6"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -185,28 +183,14 @@
                     android:orientation="vertical"
                     android:padding="6dp">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:contentDescription="@string/title_machine"
-                            app:srcCompat="@drawable/ic_water" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/title_machine"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_water"
+                        android:text="@string/title_machine"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -226,40 +210,34 @@
                     android:orientation="vertical"
                     android:padding="6dp">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:contentDescription="@string/title_kind"
-                            app:srcCompat="@drawable/ic_vegetable" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/title_kind"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_vegetable"
+                        android:text="@string/title_kind"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:duplicateParentState="true"
                         android:ellipsize="marquee"
                         android:focusable="auto"
                         android:focusableInTouchMode="true"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="@string/tv_kind"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" />
+                        android:textSize="18sp" >
+                        <requestFocus
+                        android:duplicateParentState="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+                    </TextView>
 
                 </LinearLayout>
             </LinearLayout>
