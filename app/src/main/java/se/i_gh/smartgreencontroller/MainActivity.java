@@ -39,18 +39,22 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String msgStr = Objects.requireNonNull(intent.getExtras()).getString("data");
+            Log.i(LOG_TAG, msgStr);
             try {
                 JSONObject json = new JSONObject(msgStr);
                 if (json.has("hao")) {
                     String hao = json.get("hao").toString();
-                    String humi_1 = Integer.toString(Integer.parseInt(hao.substring(1, 3)));
-                    String humi_2 = Integer.toString(Integer.parseInt(hao.substring(3, 5)));
-                    String air_temp = Integer.toString(Integer.parseInt(hao.substring(6, 8)));
-                    String air_humi = Integer.toString(Integer.parseInt(hao.substring(8, 10)));
+                    int indexH = hao.indexOf("H");
+                    int indexA = hao.indexOf("A");
+                    int indexO = hao.indexOf("O");
+                    String humi_1 = Integer.toString(Integer.parseInt(hao.substring(indexH + 1, indexH + 3)));
+                    String humi_2 = Integer.toString(Integer.parseInt(hao.substring(indexH + 3, indexA)));
+                    String air_temp = Integer.toString(Integer.parseInt(hao.substring(indexA + 1, indexA + 3)));
+                    String air_humi = Integer.toString(Integer.parseInt(hao.substring(indexA + 3, indexO)));
                     tv_h.setText(String.format("位置[1] %s%% 位置[2] %s%%", humi_1, humi_2));
                     tv_a.setText(String.format("温度 %s℃     湿度 %s%%", air_temp, air_humi));
-                    String click = hao.substring(11, 15) + "/" + hao.substring(15, 17) + "/" + hao.substring(17, 19) + " " + hao.substring(19, 21) + ":" + hao.substring(21, 23);
-                    String status = (hao.substring(23).equalsIgnoreCase("close")) ? "关闭" : "开启";
+                    String click = hao.substring(indexO + 1, indexO + 5) + "/" + hao.substring(indexO + 5, indexO + 7) + "/" + hao.substring(indexO + 7, indexO + 9) + " " + hao.substring(indexO + 9, indexO + 11) + ":" + hao.substring(indexO + 11, indexO + 13);
+                    String status = (hao.substring(indexO + 13).equalsIgnoreCase("close")) ? "关闭" : "开启";
                     tv_o.setText(String.format("%s %s", click, status));
                 } else if (json.has("wea")) {
                     tv_wea.setText(String.format("%s", json.get("wea").toString().substring(15)));

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -36,6 +37,7 @@ public class HzIotClient extends Service {
         @Override
         public void connectionLost(Throwable cause) {
             Log.e(LOG_TAG, "Connection lost: ", cause);
+            Toast.makeText(HzIotClient.this, "Connection lost: " + cause.toString(), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -50,6 +52,7 @@ public class HzIotClient extends Service {
         @Override
         public void deliveryComplete(IMqttDeliveryToken token) {
             Log.i(LOG_TAG, String.format("Delivery complete: %s", (token == null || token.getResponse() == null) ? "null" : token.getResponse().getKey()));
+            Toast.makeText(HzIotClient.this, String.format("Delivery complete: %s", (token == null || token.getResponse() == null) ? "null" : token.getResponse().getKey()), Toast.LENGTH_LONG).show();
         }
     };
     private String targetServer = "iot-as.aliyuncs.com:80";//接入服务器域名
@@ -104,6 +107,7 @@ public class HzIotClient extends Service {
             Objects.requireNonNull(mqttClient).connect(connOpts);
             Objects.requireNonNull(mqttClient).setCallback(callback);
             mqttClient.subscribe(subTopic);
+            Toast.makeText(HzIotClient.this, String.format("HzIotClient connection success"), Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -140,6 +144,7 @@ public class HzIotClient extends Service {
             message.setQos(0);
             mqttClient.publish(pubTopic, message);
             Log.i(LOG_TAG, command);
+            Toast.makeText(HzIotClient.this, String.format("Command [%s] push success", command), Toast.LENGTH_LONG).show();
         } catch (MqttException e) {
             Log.e(LOG_TAG, "Publish exception: ", e);
         }
