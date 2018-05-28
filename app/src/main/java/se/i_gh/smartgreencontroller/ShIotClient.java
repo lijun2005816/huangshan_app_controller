@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.aliyun.alink.linksdk.channel.core.base.AError;
 import com.aliyun.alink.linksdk.channel.core.base.ARequest;
@@ -26,13 +25,11 @@ public class ShIotClient extends Service {
         @Override
         public void onSuccess(ARequest request, AResponse response) {
             Log.i(LOG_TAG, "Send success");
-            Toast.makeText(ShIotClient.this, String.format("Message[%s] send success", request.toString()), Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onFailed(ARequest request, AError error) {
             Log.i(LOG_TAG, "Send failed");
-            Toast.makeText(ShIotClient.this, String.format("Message[%s] send failed", request.toString()), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -44,13 +41,11 @@ public class ShIotClient extends Service {
         @Override
         public void onSuccess(String s) {
             Log.i(LOG_TAG, "Subscribe success");
-            Toast.makeText(ShIotClient.this, String.format("Subscribe success [%s]", s), Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onFailed(String s, AError aError) {
             Log.i(LOG_TAG, "Subscribe failed");
-            Toast.makeText(ShIotClient.this, String.format("Subscribe failed [%s]", s), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -65,7 +60,6 @@ public class ShIotClient extends Service {
             intent.putExtra("data", data);
             sendBroadcast(intent);
             Log.i(LOG_TAG, topic + ":" + data);
-            Toast.makeText(ShIotClient.this, String.format("Push [%s:%s] success", topic, data), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -87,7 +81,6 @@ public class ShIotClient extends Service {
         @Override
         public void onConnected() {
             Log.i(LOG_TAG, "Connect success");
-            Toast.makeText(ShIotClient.this, String.format("ShIotClient connection success"), Toast.LENGTH_LONG).show();
             MqttPublishRequest publishRequest = new MqttPublishRequest();
             publishRequest.isRPC = false;
             publishRequest.topic = pubTopic;
@@ -99,7 +92,6 @@ public class ShIotClient extends Service {
         @Override
         public void onDisconnect() {
             Log.e(LOG_TAG, "Disconnect");
-            Toast.makeText(ShIotClient.this, String.format("ShIotClient disconnect"), Toast.LENGTH_LONG).show();
         }
     };
 

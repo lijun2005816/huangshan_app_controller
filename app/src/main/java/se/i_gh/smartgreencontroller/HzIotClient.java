@@ -37,7 +37,6 @@ public class HzIotClient extends Service {
         @Override
         public void connectionLost(Throwable cause) {
             Log.e(LOG_TAG, "Connection lost: ", cause);
-            Toast.makeText(HzIotClient.this, "Connection lost: " + cause.toString(), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -52,7 +51,6 @@ public class HzIotClient extends Service {
         @Override
         public void deliveryComplete(IMqttDeliveryToken token) {
             Log.i(LOG_TAG, String.format("Delivery complete: %s", (token == null || token.getResponse() == null) ? "null" : token.getResponse().getKey()));
-            Toast.makeText(HzIotClient.this, String.format("Delivery complete: %s", (token == null || token.getResponse() == null) ? "null" : token.getResponse().getKey()), Toast.LENGTH_LONG).show();
         }
     };
     private String targetServer = "iot-as.aliyuncs.com:80";//接入服务器域名
@@ -107,7 +105,7 @@ public class HzIotClient extends Service {
             Objects.requireNonNull(mqttClient).connect(connOpts);
             Objects.requireNonNull(mqttClient).setCallback(callback);
             mqttClient.subscribe(subTopic);
-            Toast.makeText(HzIotClient.this, String.format("HzIotClient connection success"), Toast.LENGTH_LONG).show();
+            Toast.makeText(HzIotClient.this, "sg controller connection success", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
         }

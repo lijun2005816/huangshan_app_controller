@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -48,7 +47,6 @@ public class HsIotClient extends Service {
         @Override
         public void connectionLost(Throwable cause) {
             Log.e(LOG_TAG, "Connection lost: ", cause);
-            Toast.makeText(HsIotClient.this, "Connection lost: " + cause.toString(), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -63,7 +61,6 @@ public class HsIotClient extends Service {
         @Override
         public void deliveryComplete(IMqttDeliveryToken token) {
             Log.i(LOG_TAG, String.format("Delivery complete: %s", (token == null || token.getResponse() == null) ? "null" : token.getResponse().getKey()));
-            Toast.makeText(HsIotClient.this, String.format("Delivery complete: %s", (token == null || token.getResponse() == null) ? "null" : token.getResponse().getKey()), Toast.LENGTH_LONG).show();
         }
     };
 
@@ -105,7 +102,6 @@ public class HsIotClient extends Service {
             connOpts.setKeepAliveInterval(80);
             Objects.requireNonNull(mqttClient).connect(connOpts);
             Objects.requireNonNull(mqttClient).setCallback(callback);
-            Toast.makeText(HsIotClient.this, String.format("HsIotClient connection success"), Toast.LENGTH_LONG).show();
             mqttClient.subscribe(subTopic);
             JSONObject json = new JSONObject();
             json.put("hao", "H5002A2322O201804251215close");
