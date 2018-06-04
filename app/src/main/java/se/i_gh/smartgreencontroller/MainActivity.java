@@ -29,12 +29,23 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     public static final String URL = "http://sglive.dejon.cn/smartgreen/1.m3u8";
     final static String LOG_TAG = "MainActivity";
     private View includeShow, includeReceive, includeDashboard, includeSend, includeVideo;
     private TextView tv_h, tv_a, tv_o, tv_wea;
+    private Timer timer = new Timer();
+    private TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+            sendCmd("valve0");
+        }
+    };
+    private boolean isTimerStart = false;
+    private int maxPumpTime = 30*60*1000;
     BroadcastReceiver broadcastReceiverSh = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -48,14 +59,44 @@ public class MainActivity extends AppCompatActivity {
                     int indexA = hao.indexOf("A");
                     int indexO = hao.indexOf("O");
                     String humi_1 = Integer.toString(Integer.parseInt(hao.substring(indexH + 1, indexH + 3)));
+                    if (humi_1.equals("99")) {
+                        humi_1 = "--";
+                    }
                     String humi_2 = Integer.toString(Integer.parseInt(hao.substring(indexH + 3, indexA)));
+                    if (humi_2.equals("99")) {
+                        humi_2 = "--";
+                    }
                     String air_temp = Integer.toString(Integer.parseInt(hao.substring(indexA + 1, indexA + 3)));
+                    if (air_temp.equals("99")) {
+                        air_temp = "--";
+                    }
                     String air_humi = Integer.toString(Integer.parseInt(hao.substring(indexA + 3, indexO)));
+                    if (air_humi.equals("99")) {
+                        air_humi = "--";
+                    }
                     tv_h.setText(String.format("位置[1] %s%% 位置[2] %s%%", humi_1, humi_2));
                     tv_a.setText(String.format("温度 %s℃     湿度 %s%%", air_temp, air_humi));
                     String click = hao.substring(indexO + 1, indexO + 5) + "/" + hao.substring(indexO + 5, indexO + 7) + "/" + hao.substring(indexO + 7, indexO + 9) + " " + hao.substring(indexO + 9, indexO + 11) + ":" + hao.substring(indexO + 11, indexO + 13);
                     String status = (hao.substring(indexO + 13).equalsIgnoreCase("close")) ? "关闭" : "开启";
                     tv_o.setText(String.format("%s %s", click, status));
+                    if (status.equals("开启")) {
+                        if (! isTimerStart) {
+                            isTimerStart = true;
+                            timer.schedule(task, maxPumpTime);
+                        }
+                    } else {
+                        if (isTimerStart) {
+                            isTimerStart = false;
+                            timer.cancel();
+                        }
+                    }
+                    if (click.equals("2018/01/01 22:22")) {
+                        String error = "暂无操作记录";
+                        tv_o.setText(String.format("%s", error));
+                    } else if (click.equals("2018/04/25 12:15")) {
+                        String error = "暂未与设备连接";
+                        tv_o.setText(String.format("%s", error));
+                    }
                 } else if (json.has("wea")) {
                     tv_wea.setText(String.format("%s", json.get("wea").toString().substring(15)));
                 }

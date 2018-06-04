@@ -104,7 +104,7 @@ public class HsIotClient extends Service {
             Objects.requireNonNull(mqttClient).setCallback(callback);
             mqttClient.subscribe(subTopic);
             JSONObject json = new JSONObject();
-            json.put("hao", "H5002A2322O201804251215close");
+            json.put("hao", "H9999A9999O201804251215close");
             MqttMessage message = new MqttMessage(json.toString().getBytes());
             message.setQos(0);
             mqttClient.publish(pubTopic, message);
