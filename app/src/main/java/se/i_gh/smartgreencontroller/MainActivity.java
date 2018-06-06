@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -16,9 +17,12 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alivc.player.AliVcMediaPlayer;
 
@@ -45,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     private boolean isTimerStart = false;
-    private int maxPumpTime = 30*60*1000;
+    private long maxPumpTime = 30*60*1000;
     BroadcastReceiver broadcastReceiverSh = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -258,6 +262,25 @@ public class MainActivity extends AppCompatActivity {
             sendCmd("spkr6");
         }
     };
+    private AdapterView.OnItemSelectedListener listenerValveMaxSelected = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            String sInfo=parent.getItemAtPosition(position).toString();
+            int indexStart = sInfo.indexOf("-");
+            int indexEnd = sInfo.lastIndexOf("-");
+            String num = sInfo.substring(indexStart + 2, indexEnd-1);
+            long minute = Long.valueOf(num);
+            SharedPreferences setting = getSharedPreferences("setting", 0);
+            SharedPreferences.Editor editor = setting.edit();
+            editor.putLong("valvemax", minute*60*1000).apply();
+            Toast.makeText(MainActivity.this, String.format("max valve open time is saved : %s minutes", minute), Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -326,6 +349,12 @@ public class MainActivity extends AppCompatActivity {
         btn_cmd_minhold.setOnClickListener(listenerCmdMinhold);
         Button btn_cmd_remotetest = findViewById(R.id.btn_cmd_remotetest);
         btn_cmd_remotetest.setOnClickListener(listenerCmdRemotetest);
+        Spinner spnValveMax = findViewById(R.id.spn_valve_max);
+        spnValveMax.setOnItemSelectedListener(listenerValveMaxSelected);
+        SharedPreferences setting = getSharedPreferences("setting", 0);
+        maxPumpTime = setting.getLong("valvemax", 30*60*1000);
+        spnValveMax.setSelection((int)(maxPumpTime/1000/60/5-1));
+        Log.i(LOG_TAG, String.format("valvemax:%s", maxPumpTime));
         //set video page
         mSurfaceViewOne = findViewById(R.id.PlayerOne);
         mSurfaceViewTwo = findViewById(R.id.PlayerTwo);

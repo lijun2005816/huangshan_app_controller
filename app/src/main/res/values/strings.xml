@@ -19,8 +19,8 @@
     <string name="btn_cmd_dataopen">数据开启</string>
     <string name="btn_cmd_remotetest">远端测试</string>
     <string name="btn_cmd_maxhold">设置湿度上限</string>
-    <string name="et_cmd_maxhold">湿度上限，如90</string>
-    <string name="et_cmd_minhold">湿度下限，如10</string>
+    <string name="et_cmd_maxhold">上限，如90</string>
+    <string name="et_cmd_minhold">下限，如10</string>
     <string name="btn_cmd_minhold">设置湿度下限</string>
     <string name="title_copyright">上海思稞信息科技有限公司</string>
     <string name="icon_humi">土壤湿度</string>

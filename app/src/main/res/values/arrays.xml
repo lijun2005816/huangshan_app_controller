@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="time_interval_entry">
+        <item>阀门最长开启 - 5 - 分钟</item>
+        <item>阀门最长开启 - 10 -分钟</item>
+        <item>阀门最长开启 - 15 -分钟</item>
+        <item>阀门最长开启 - 20 -分钟</item>
+        <item>阀门最长开启 - 25 -分钟</item>
+        <item>阀门最长开启 - 30 -分钟</item>
+    </string-array>
+</resources>

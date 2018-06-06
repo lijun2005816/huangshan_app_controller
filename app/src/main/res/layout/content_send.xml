@@ -17,11 +17,11 @@
 
             <EditText
                 android:id="@+id/et_cmd_input"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:ems="10"
                 android:freezesText="true"
                 android:hint="@string/tv_cmd_input"
@@ -29,21 +29,21 @@
 
             <Button
                 android:id="@+id/btn_cmd_send"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="@string/btn_cmd_send"
                 tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/btn_cmd_clear"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="@string/btn_cmd_clear"
                 tools:ignore="ButtonStyle" />
 
@@ -56,7 +56,7 @@
 
             <Button
                 android:id="@+id/btn_cmd_videopen"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
@@ -66,7 +66,7 @@
 
             <Button
                 android:id="@+id/btn_cmd_videoclose"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
@@ -76,7 +76,7 @@
 
             <Button
                 android:id="@+id/btn_cmd_dataopen"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
@@ -86,7 +86,7 @@
 
             <Button
                 android:id="@+id/btn_cmd_dataclose"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
@@ -102,7 +102,7 @@
 
             <EditText
                 android:id="@+id/et_cmd_maxhold"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
@@ -113,7 +113,7 @@
 
             <Button
                 android:id="@+id/btn_cmd_maxhold"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
@@ -123,7 +123,7 @@
 
             <EditText
                 android:id="@+id/et_cmd_minhold"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
@@ -134,7 +134,7 @@
 
             <Button
                 android:id="@+id/btn_cmd_minhold"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
@@ -151,13 +151,22 @@
 
             <Button
                 android:id="@+id/btn_cmd_remotetest"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:layout_marginRight="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:text="@string/btn_cmd_remotetest"
                 tools:ignore="ButtonStyle" />
+
+            <Spinner
+                android:id="@+id/spn_valve_max"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:entries="@array/time_interval_entry" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
