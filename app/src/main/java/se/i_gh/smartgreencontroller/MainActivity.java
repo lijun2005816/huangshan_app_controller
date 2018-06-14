@@ -38,7 +38,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     public static final String URL = "http://sglive.dejon.cn/smartgreen/1.m3u8";
-    final static String LOG_TAG = "MainActivity";
+    final static String TAG = "MainActivity";
     private View includeShow, includeReceive, includeDashboard, includeSend, includeVideo;
     private TextView tv_h, tv_a, tv_o, tv_wea;
     private Timer timer = new Timer();
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String msgStr = Objects.requireNonNull(intent.getExtras()).getString("data");
-            Log.i(LOG_TAG, msgStr);
+            Log.i(TAG, msgStr);
             try {
                 JSONObject json = new JSONObject(msgStr);
                 if (json.has("hao")) {
@@ -87,11 +87,13 @@ public class MainActivity extends AppCompatActivity {
                         if (! isTimerStart) {
                             isTimerStart = true;
                             timer.schedule(task, maxPumpTime);
+                            Log.i(TAG, String.format("timer start: %s", maxPumpTime));
                         }
                     } else {
                         if (isTimerStart) {
                             isTimerStart = false;
                             timer.cancel();
+                            Log.i(TAG, String.format("timer cancel: %s", maxPumpTime));
                         }
                     }
                     if (click.equals("2018/01/01 22:22")) {
@@ -196,9 +198,9 @@ public class MainActivity extends AppCompatActivity {
                 tv_temp.setText(String.format("温度\nCH1:%s\nCH2:%s\nCH3:%s", ch1, ch2, ch3));
                 tv_humi.setText(String.format("湿度\nCH1:%s\nCH2:%s\nCH3:%s", ch4, ch5, ch6));
             } catch (JSONException e) {
-                Log.e(LOG_TAG, "json format exception", e);
+                Log.e(TAG, "json format exception", e);
             } catch (Exception e) {
-                Log.e(LOG_TAG, "data parse exception:" + jsonStr, e);
+                Log.e(TAG, "data parse exception:" + jsonStr, e);
             }
         }
     };
@@ -273,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences setting = getSharedPreferences("setting", 0);
             SharedPreferences.Editor editor = setting.edit();
             editor.putLong("valvemax", minute*60*1000).apply();
+            maxPumpTime = minute*60*1000;
             Toast.makeText(MainActivity.this, String.format("max valve open time is saved : %s minutes", minute), Toast.LENGTH_LONG).show();
         }
 
@@ -354,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences setting = getSharedPreferences("setting", 0);
         maxPumpTime = setting.getLong("valvemax", 30*60*1000);
         spnValveMax.setSelection((int)(maxPumpTime/1000/60/5-1));
-        Log.i(LOG_TAG, String.format("valvemax:%s", maxPumpTime));
+        Log.i(TAG, String.format("valvemax:%s", maxPumpTime));
         //set video page
         mSurfaceViewOne = findViewById(R.id.PlayerOne);
         mSurfaceViewTwo = findViewById(R.id.PlayerTwo);
@@ -397,12 +400,12 @@ public class MainActivity extends AppCompatActivity {
             try {
                 commandJson.put("cmd", commandStr);
                 String cmdStr = commandJson.toString();
-                Log.i(LOG_TAG, "send json：" + cmdStr);
+                Log.i(TAG, "send json：" + cmdStr);
                 Intent hzIotClient = new Intent(this, HzIotClient.class);
                 hzIotClient.putExtra("command", cmdStr);
                 startService(hzIotClient);
             } catch (Exception e) {
-                Log.e(LOG_TAG, "send exception", e);
+                Log.e(TAG, "send exception", e);
             }
         }
     }
