@@ -45,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
     private TimerTask task = new TimerTask() {
         @Override
         public void run() {
-            sendCmd("valve0");
+            sendCmd("maxhold2");
+            String error = "设备阀门超时保护，修改湿度上限解除";
+            tv_o.setText(String.format("%s", error));
         }
     };
     private boolean isTimerStart = false;
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.i(TAG, String.format("timer start: %s", maxPumpTime));
                         }
                     } else {
-                        if (isTimerStart) {
+                        if (isTimerStart && Integer.parseInt(humi_1) <100 && Integer.parseInt(humi_2) <100) {
                             isTimerStart = false;
                             timer.cancel();
                             Log.i(TAG, String.format("timer cancel: %s", maxPumpTime));
